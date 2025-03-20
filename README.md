@@ -1,1 +1,1 @@
-# jupyter-remote-client
+# jupyter-remote-runner

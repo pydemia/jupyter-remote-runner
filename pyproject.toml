@@ -1,0 +1,91 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jupyter-remote-runner"
+authors = [
+    { name="Youngju Jaden Kim", email="pydemia@gmail.com" },
+]
+description = "A daemon processor for gathering requests into a batch."
+
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+]
+dependencies = [
+    "jupyter_enterprise_gateway",
+    "jupyter_kernel_gateway",
+    "jupyter_server",
+    "notebook",
+    "httpx",
+    "websockets",
+    "zmq",
+    "autologging",
+    "pytest-asyncio",
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+Homepage = "https://jupyter-remote-runner.readthedocs.io/en/latest/"
+Repository = "https://github.com/pydemia/jupyter-remote-runner"
+Changelog = "https://github.com/pydemia/jupyter-remote-runner/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/pydemia/jupyter-remote-runner/issues"
+
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "fastapi",
+    "locust",
+    "python-dotenv",
+    "gunicorn",
+    "uvicorn",
+]
+dev = [
+    "setuptools",
+    "wheel",
+    "twine",
+    "build",
+    "sphinx",
+    "sphinx-rtd-theme",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    "."
+]
+
+[tool.setuptools.packages.find]
+include = [
+    "dynamic_batcher*"
+]
+exclude = [
+    "test*",
+    "e2e*",
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "dynamic_batcher.__version__"}
+readme = {file = ["README.rst"]}
+
+[tool.poetry]
+name = "guidelines"
+version = "0.1.0"
+description = ""
+authors = ["Read the Docs, Inc"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+scour = "^0.38.2"
+Sphinx = "^4.5.0"
+sphinx-rtd-theme = "^1.0.0"
+
+[tool.poetry.dev-dependencies]
+
+[project.scripts]
+dynamic_batch_processor = "dynamic_batcher.__main__:run_batch_processor"
